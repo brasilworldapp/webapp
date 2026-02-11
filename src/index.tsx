@@ -129,6 +129,7 @@ app.get('/', (c) => {
                 </div>
                 <div class="header-actions">
                     <span class="badge-oficial">Oficial</span>
+                    <button id="sound-toggle" class="theme-toggle" title="Alternar som">🔊</button>
                     <button id="theme-toggle" class="theme-toggle" title="Alternar tema">🌙</button>
                 </div>
             </div>

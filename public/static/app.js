@@ -63,7 +63,16 @@ const AudioManager = {
     toggle() {
         this.enabled = !this.enabled;
         localStorage.setItem('soundsEnabled', this.enabled);
+        this.updateButton();
         if (this.enabled) this.playClick();
+    },
+    
+    updateButton() {
+        const btn = document.getElementById('sound-toggle');
+        if (btn) {
+            btn.textContent = this.enabled ? '🔊' : '🔇';
+            btn.title = this.enabled ? 'Desligar som' : 'Ligar som';
+        }
     }
 };
 
@@ -475,22 +484,130 @@ function renderAbaProposicoes(proposicoes) {
 
 function renderAbaComissoes(comissoes) {
     if (comissoes.length === 0) {
-        return '<div style="text-align: center; padding: 3rem;"><div style="font-size: 3rem; opacity: 0.3; margin-bottom: 1rem;">🏛️</div><p style="color: #64748B;">Nenhuma comissão registrada</p></div>';
+        return '<div style="text-align: center; padding: 3rem;"><div style="font-size: 3rem; opacity: 0.3; margin-bottom: 1rem;">🏛️</div><p style="color: var(--text-secondary);">Nenhuma comissão registrada</p></div>';
     }
     
+    // Separar comissões ativas e encerradas
+    const hoje = new Date();
+    const ativas = comissoes.filter(c => !c.dataFim || new Date(c.dataFim) > hoje);
+    const encerradas = comissoes.filter(c => c.dataFim && new Date(c.dataFim) <= hoje);
+    
     return `
-        <div style="margin-bottom: 1rem;"><strong>Total: ${comissoes.length} comissões</strong></div>
-        <div style="display: grid; gap: 1rem;">
-            ${comissoes.map(c => `
-                <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: 8px;">
-                    <h4 style="font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem;">${c.nome || c.siglaOrgao || 'Comissão'}</h4>
-                    ${c.titulo ? `<p style="font-weight: 600; color: #002776; margin-bottom: 0.5rem;">${c.titulo}</p>` : ''}
-                    <div style="font-size: 0.875rem; color: var(--text-secondary);">
-                        📅 ${c.dataInicio ? new Date(c.dataInicio).toLocaleDateString('pt-BR') : 'Data não informada'}
-                        ${c.dataFim ? ` até ${new Date(c.dataFim).toLocaleDateString('pt-BR')}` : ' até o presente'}
-                    </div>
+        <div style="background: linear-gradient(135deg, #002776, #001a5c); color: white; padding: 2rem; border-radius: 12px; margin-bottom: 2rem; text-align: center;">
+            <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem;">🏛️ Comissões e Órgãos</h3>
+            <p style="opacity: 0.9;">Atuação parlamentar em comissões permanentes e temporárias</p>
+            <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 1.5rem;">
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; font-weight: 800;">${ativas.length}</div>
+                    <div style="font-size: 0.875rem; opacity: 0.9;">Ativas</div>
                 </div>
-            `).join('')}
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; font-weight: 800;">${encerradas.length}</div>
+                    <div style="font-size: 0.875rem; opacity: 0.9;">Encerradas</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; font-weight: 800;">${comissoes.length}</div>
+                    <div style="font-size: 0.875rem; opacity: 0.9;">Total</div>
+                </div>
+            </div>
+        </div>
+        
+        ${ativas.length > 0 ? `
+            <div style="margin-bottom: 2rem;">
+                <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                    ✅ Comissões Ativas (${ativas.length})
+                </h3>
+                <div style="display: grid; gap: 1rem;">
+                    ${ativas.map(c => {
+                        const dataInicio = c.dataInicio ? new Date(c.dataInicio).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }) : 'Não informado';
+                        const duracao = c.dataInicio ? Math.floor((hoje - new Date(c.dataInicio)) / (1000 * 60 * 60 * 24 * 30)) : 0;
+                        
+                        return `
+                        <div style="background: var(--bg-secondary); padding: 1.75rem; border-radius: 12px; border-left: 5px solid #009739; box-shadow: var(--shadow-sm); transition: all 0.2s;" onmouseenter="this.style.transform='translateX(4px)'; this.style.boxShadow='var(--shadow-md)';" onmouseleave="this.style.transform='translateX(0)'; this.style.boxShadow='var(--shadow-sm)';">
+                            <div style="display: flex; align-items: start; gap: 1rem; margin-bottom: 1rem;">
+                                <div style="background: linear-gradient(135deg, #009739, #007a2e); color: white; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">
+                                    🏛️
+                                </div>
+                                <div style="flex: 1;">
+                                    <h4 style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem; line-height: 1.3;">
+                                        ${c.siglaOrgao || 'Órgão'}
+                                    </h4>
+                                    <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 0.75rem;">
+                                        ${c.nome || 'Nome não informado'}
+                                    </p>
+                                    ${c.titulo ? `
+                                        <div style="background: var(--bg-tertiary); padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 0.75rem;">
+                                            <div style="font-size: 0.75rem; font-weight: 700; color: var(--brasil-azul); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">Cargo</div>
+                                            <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary);">${c.titulo}</div>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+                                <div style="background: var(--bg-tertiary); padding: 0.75rem; border-radius: 6px; text-align: center;">
+                                    <div style="font-size: 0.75rem; color: var(--text-tertiary); margin-bottom: 0.25rem;">📅 Início</div>
+                                    <div style="font-size: 0.9rem; font-weight: 600; color: var(--text-primary);">${dataInicio}</div>
+                                </div>
+                                <div style="background: linear-gradient(135deg, #009739, #007a2e); padding: 0.75rem; border-radius: 6px; text-align: center;">
+                                    <div style="font-size: 0.75rem; color: rgba(255,255,255,0.9); margin-bottom: 0.25rem;">⏱️ Tempo</div>
+                                    <div style="font-size: 0.9rem; font-weight: 700; color: white;">${duracao} ${duracao === 1 ? 'mês' : 'meses'}</div>
+                                </div>
+                                <div style="background: var(--bg-tertiary); padding: 0.75rem; border-radius: 6px; text-align: center;">
+                                    <div style="font-size: 0.75rem; color: var(--text-tertiary); margin-bottom: 0.25rem;">📊 Status</div>
+                                    <div style="font-size: 0.9rem; font-weight: 700; color: #009739;">✅ ATIVA</div>
+                                </div>
+                            </div>
+                            
+                            ${c.uriOrgao ? `
+                                <a href="${c.uriOrgao}" target="_blank" style="display: block; margin-top: 1rem; text-align: center; background: var(--brasil-azul); color: white; padding: 0.75rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s;" onmouseenter="this.style.background='#001a5c';" onmouseleave="this.style.background='var(--brasil-azul)';">
+                                    🔗 Ver no Portal da Câmara
+                                </a>
+                            ` : ''}
+                        </div>
+                    `;
+                    }).join('')}
+                </div>
+            </div>
+        ` : ''}
+        
+        ${encerradas.length > 0 ? `
+            <div>
+                <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                    📋 Comissões Encerradas (${encerradas.length})
+                </h3>
+                <div style="display: grid; gap: 1rem;">
+                    ${encerradas.map(c => {
+                        const dataInicio = c.dataInicio ? new Date(c.dataInicio).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }) : 'Não informado';
+                        const dataFim = c.dataFim ? new Date(c.dataFim).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }) : 'Presente';
+                        const duracao = c.dataInicio && c.dataFim ? Math.floor((new Date(c.dataFim) - new Date(c.dataInicio)) / (1000 * 60 * 60 * 24 * 30)) : 0;
+                        
+                        return `
+                        <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 12px; border-left: 5px solid #94a3b8; opacity: 0.85;">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem;">
+                                <div style="font-size: 1.25rem;">🏛️</div>
+                                <div style="flex: 1;">
+                                    <h4 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">
+                                        ${c.siglaOrgao || 'Órgão'}
+                                    </h4>
+                                    <p style="font-size: 0.875rem; color: var(--text-secondary);">${c.nome || 'Nome não informado'}</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 1rem; font-size: 0.875rem; color: var(--text-tertiary); padding-top: 0.75rem; border-top: 1px solid var(--border);">
+                                <span>📅 ${dataInicio} → ${dataFim}</span>
+                                ${duracao > 0 ? `<span>⏱️ ${duracao} ${duracao === 1 ? 'mês' : 'meses'}</span>` : ''}
+                            </div>
+                        </div>
+                    `;
+                    }).join('')}
+                </div>
+            </div>
+        ` : ''}
+        
+        <div style="margin-top: 2rem; padding: 1.5rem; background: var(--bg-tertiary); border-radius: 12px; text-align: center;">
+            <p style="font-size: 0.875rem; color: var(--text-secondary); line-height: 1.6;">
+                📊 <strong>Fonte:</strong> Dados oficiais da Câmara dos Deputados, atualizados automaticamente
+            </p>
         </div>
     `;
 }
@@ -714,10 +831,18 @@ async function init() {
             document.getElementById('modal-perfil').style.display = 'none';
         });
         
+        // Botão de som
+        document.getElementById('sound-toggle')?.addEventListener('click', () => {
+            AudioManager.toggle();
+        });
+        
         // Botão de tema
         document.getElementById('theme-toggle')?.addEventListener('click', () => {
             ThemeManager.toggle();
         });
+        
+        // Atualizar botões após inicialização
+        AudioManager.updateButton();
         
         // Remover loading
         setTimeout(() => {
