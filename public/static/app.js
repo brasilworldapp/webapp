@@ -363,7 +363,6 @@ function renderPerfil(detalhes, despesas, proposicoes, comissoes) {
             <button class="tab-button" data-tab="comissoes">🏛️ Comissões</button>
             <button class="tab-button" data-tab="frequencia">📊 Frequência</button>
             <button class="tab-button" data-tab="trajetoria">📜 Trajetória</button>
-            <button class="tab-button" data-tab="desenvolvimento">🚧 Próximos</button>
         </div>
         
         <div class="tab-contents">
@@ -373,7 +372,6 @@ function renderPerfil(detalhes, despesas, proposicoes, comissoes) {
             <div class="tab-content" data-tab-content="comissoes">${renderAbaComissoes(comissoes)}</div>
             <div class="tab-content" data-tab-content="frequencia">${renderAbaFrequencia(detalhes)}</div>
             <div class="tab-content" data-tab-content="trajetoria">${renderAbaTrajetoria(detalhes)}</div>
-            <div class="tab-content" data-tab-content="desenvolvimento">${renderAbaDesenvolvimento()}</div>
         </div>
     `;
 }
@@ -814,6 +812,22 @@ async function init() {
         }
         
         // Event listeners
+        // Navegação Deputados/Senadores
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                AudioManager.playClick();
+                const section = tab.dataset.section;
+                
+                // Atualizar abas
+                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Atualizar seções
+                document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+                document.getElementById(`${section}-section`)?.classList.add('active');
+            });
+        });
+        
         document.getElementById('search-input')?.addEventListener('input', (e) => {
             State.filtrar({ nome: e.target.value });
         });

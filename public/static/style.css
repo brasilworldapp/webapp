@@ -9,6 +9,10 @@
     box-sizing: border-box;
 }
 
+html {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 /* VARIABLES - TEMA CLARO */
 :root {
     --brasil-azul: #002776;
@@ -45,6 +49,7 @@ body {
     background: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* ==================
@@ -86,9 +91,9 @@ body {
     animation: slideIn 0.8s ease-out;
 }
 
-.flag-stripe.green {
+.flag-stripe.blue {
     top: 0;
-    background: var(--brasil-verde);
+    background: var(--brasil-azul);
     animation-delay: 0.1s;
 }
 
@@ -98,9 +103,9 @@ body {
     animation-delay: 0.2s;
 }
 
-.flag-stripe.blue {
+.flag-stripe.green {
     top: 66.66%;
-    background: var(--brasil-azul);
+    background: var(--brasil-verde);
     animation-delay: 0.3s;
 }
 
@@ -135,10 +140,11 @@ body {
    HEADER
    ================== */
 .header {
-    background: white;
+    background: var(--bg-secondary);
     border-bottom: 1px solid var(--border);
     padding: 1.5rem 0;
     box-shadow: var(--shadow-sm);
+    transition: background-color 0.3s ease;
 }
 
 .header-content {
@@ -231,7 +237,8 @@ body {
     border: 2px solid var(--border);
     border-radius: 8px;
     font-size: 1rem;
-    background: white;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
     transition: all 0.2s;
 }
 
@@ -255,7 +262,7 @@ body {
 }
 
 .deputy-card {
-    background: white;
+    background: var(--bg-secondary);
     border: 2px solid var(--border);
     border-radius: 12px;
     padding: 1.5rem;
@@ -337,7 +344,7 @@ body {
 }
 
 .modal-content {
-    background: white;
+    background: var(--bg-secondary);
     border-radius: 16px;
     width: 100%;
     max-width: 900px;
@@ -345,6 +352,7 @@ body {
     overflow-y: auto;
     position: relative;
     box-shadow: var(--shadow-lg);
+    transition: background-color 0.3s ease;
 }
 
 .modal-close {
@@ -484,4 +492,222 @@ body {
     .tabs {
         flex-wrap: wrap;
     }
+}
+}
+
+/* ==================
+   NAVIGATION TABS
+   ================== */
+.main-navigation {
+    background: var(--bg-secondary);
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 0;
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.nav-tab {
+    background: transparent;
+    border: none;
+    padding: 1.25rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-tab:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.nav-tab.active {
+    color: var(--brasil-azul);
+    border-bottom-color: var(--brasil-azul);
+    background: var(--bg-primary);
+}
+
+.nav-icon {
+    font-size: 1.5rem;
+}
+
+.nav-text {
+    font-size: 1rem;
+}
+
+.nav-count {
+    background: var(--brasil-verde);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+.nav-badge {
+    background: var(--brasil-amarelo);
+    color: #1a1a1a;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+/* CONTENT SECTIONS */
+.content-section {
+    display: none;
+}
+
+.content-section.active {
+    display: block;
+}
+
+/* ==================
+   SENADORES PLACEHOLDER
+   ================== */
+.senadores-placeholder {
+    max-width: 900px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+}
+
+.construction-banner {
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+}
+
+.construction-icon {
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.construction-banner h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.construction-subtitle {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+.progress-container {
+    margin: 2rem 0;
+}
+
+.progress-bar {
+    background: var(--bg-tertiary);
+    height: 12px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 0.75rem;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, var(--brasil-verde), var(--brasil-amarelo));
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.5s ease;
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { opacity: 1; }
+    50% { opacity: 0.8; }
+    100% { opacity: 1; }
+}
+
+.progress-text {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.feature-item {
+    background: var(--bg-secondary);
+    padding: 1.25rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.feature-icon {
+    font-size: 2rem;
+}
+
+.feature-text {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.info-box {
+    background: var(--bg-secondary);
+    border-left: 4px solid var(--brasil-azul);
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: left;
+    margin: 2rem 0;
+}
+
+.info-box p {
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.info-box ul {
+    list-style: none;
+    padding: 0;
+}
+
+.info-box li {
+    padding: 0.5rem 0;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.update-note {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
 }

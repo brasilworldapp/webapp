@@ -102,9 +102,9 @@ app.get('/', (c) => {
     <div id="loading-screen">
         <div class="loading-content">
             <div class="brazil-flag-loader">
-                <div class="flag-stripe green"></div>
-                <div class="flag-stripe yellow"></div>
                 <div class="flag-stripe blue"></div>
+                <div class="flag-stripe yellow"></div>
+                <div class="flag-stripe green"></div>
             </div>
             <h2>Brasil World</h2>
             <p class="loading-text">Carregando dados oficiais da Câmara dos Deputados...</p>
@@ -135,6 +135,22 @@ app.get('/', (c) => {
             </div>
         </header>
 
+        <!-- NAVIGATION TABS -->
+        <div class="main-navigation">
+            <div class="nav-container">
+                <button class="nav-tab active" data-section="deputados">
+                    <span class="nav-icon">🏛️</span>
+                    <span class="nav-text">Deputados Federais</span>
+                    <span class="nav-count">513</span>
+                </button>
+                <button class="nav-tab" data-section="senadores">
+                    <span class="nav-icon">⚖️</span>
+                    <span class="nav-text">Senadores</span>
+                    <span class="nav-badge">Em breve</span>
+                </button>
+            </div>
+        </div>
+
         <!-- FILTERS -->
         <div class="filters">
             <input type="text" id="search-input" placeholder="🔍 Buscar deputado por nome..." class="search-input">
@@ -147,7 +163,59 @@ app.get('/', (c) => {
         </div>
 
         <!-- DEPUTIES GRID -->
-        <div id="deputies-grid" class="deputies-grid"></div>
+        <div id="deputies-section" class="content-section active">
+            <div id="deputies-grid" class="deputies-grid"></div>
+        </div>
+
+        <!-- SENADORES SECTION -->
+        <div id="senadores-section" class="content-section">
+            <div class="senadores-placeholder">
+                <div class="construction-banner">
+                    <div class="construction-icon">🚧</div>
+                    <h2>Senadores em Desenvolvimento</h2>
+                    <p class="construction-subtitle">Estamos trabalhando duro para trazer os dados dos 81 Senadores do Brasil</p>
+                    
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 35%"></div>
+                        </div>
+                        <p class="progress-text">Progresso: 35%</p>
+                    </div>
+                    
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <div class="feature-icon">✅</div>
+                            <div class="feature-text">Estrutura da API</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">⏳</div>
+                            <div class="feature-text">Coleta de dados</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">⏳</div>
+                            <div class="feature-text">Interface visual</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">⏳</div>
+                            <div class="feature-text">Testes finais</div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-box">
+                        <p><strong>O que teremos:</strong></p>
+                        <ul>
+                            <li>📋 Dados completos dos 81 Senadores</li>
+                            <li>💰 Despesas dos últimos 12 meses</li>
+                            <li>📝 Proposições apresentadas</li>
+                            <li>🏛️ Comissões e atuação</li>
+                            <li>📜 Histórico político</li>
+                        </ul>
+                    </div>
+                    
+                    <p class="update-note">📅 <strong>Previsão de lançamento:</strong> Próxima atualização</p>
+                </div>
+            </div>
+        </div>
 
         <!-- MODAL PERFIL -->
         <div id="modal-perfil" class="modal">
