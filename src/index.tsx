@@ -127,7 +127,10 @@ app.get('/', (c) => {
                         <p class="subtitle">Portal de Transparência • Dados Oficiais da Câmara dos Deputados</p>
                     </div>
                 </div>
-                <span class="badge-oficial">Oficial</span>
+                <div class="header-actions">
+                    <span class="badge-oficial">Oficial</span>
+                    <button id="theme-toggle" class="theme-toggle" title="Alternar tema">🌙</button>
+                </div>
             </div>
         </header>
 
