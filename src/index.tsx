@@ -10,6 +10,11 @@ app.use('*', cors({ origin: '*' }))
 // Static files
 app.use('/static/*', serveStatic({ root: './public' }))
 
+// PWA files
+app.get('/manifest.json', serveStatic({ path: 'manifest.json', root: './public' }))
+app.get('/sw.js', serveStatic({ path: 'sw.js', root: './public' }))
+
+
 // Health check
 app.get('/health', (c) => c.json({ status: 'ok', service: 'Brasil World V6', timestamp: new Date().toISOString() }))
 
@@ -94,7 +99,16 @@ app.get('/', (c) => {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Transparência parlamentar com dados oficiais da Câmara dos Deputados. Acompanhe despesas, proposições e comissões dos 513 deputados federais.">
+    <meta name="theme-color" content="#002776">
     <title>🇧🇷 Brasil World - Transparência Parlamentar</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/png" href="https://www.genspark.ai/api/files/s/tZZfSE46">
+    <link rel="apple-touch-icon" href="https://www.genspark.ai/api/files/s/tZZfSE46">
+    
+    <!-- CSS -->
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
@@ -227,6 +241,28 @@ app.get('/', (c) => {
     </div>
 
     <script src="/static/app.js"></script>
+    
+    <!-- PWA Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('✅ Service Worker registrado:', reg.scope))
+                    .catch(err => console.error('❌ Erro ao registrar Service Worker:', err));
+            });
+        }
+        
+        // Detectar quando app é instalado
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            window.deferredPrompt = e;
+            console.log('💾 App pronto para instalar!');
+        });
+        
+        window.addEventListener('appinstalled', () => {
+            console.log('✅ App instalado com sucesso!');
+        });
+    </script>
 </body>
 </html>
     `)

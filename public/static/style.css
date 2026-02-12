@@ -474,6 +474,7 @@ body {
 }
 
 /* RESPONSIVE */
+/* RESPONSIVE */
 @media (max-width: 768px) {
     .filters {
         grid-template-columns: 1fr;
@@ -482,6 +483,7 @@ body {
     .deputies-grid {
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
         gap: 1rem;
+        padding: 0 1rem 2rem;
     }
     
     .profile-header {
@@ -491,8 +493,39 @@ body {
     
     .tabs {
         flex-wrap: wrap;
+        padding: 0 0.5rem;
     }
-}
+    
+    .tab-button {
+        padding: 0.875rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .nav-tab {
+        padding: 1rem 1.25rem;
+        font-size: 0.9rem;
+    }
+    
+    .nav-icon {
+        font-size: 1.25rem;
+    }
+    
+    .header-title h1 {
+        font-size: 1.5rem;
+    }
+    
+    .modal-content {
+        width: 95%;
+        max-height: 85vh;
+    }
+    
+    .construction-banner {
+        padding: 2rem 1.5rem;
+    }
+    
+    .construction-banner h2 {
+        font-size: 1.5rem;
+    }
 }
 
 /* ==================
