@@ -1,227 +1,255 @@
-# 🇧🇷 Brasil World - Transparência Parlamentar
+# 🇧🇷 Brasil World - PWA com Proteção Máxima
 
-> Portal completo de transparência política com dados oficiais da Câmara dos Deputados
+## 📱 **O QUE É?**
 
-## 🎯 Sobre o Projeto
+Brasil World é um **Progressive Web App (PWA)** instalável que fornece transparência parlamentar com dados oficiais da Câmara dos Deputados.
 
-Brasil World é um aplicativo web/mobile que permite aos cidadãos brasileiros acompanharem a atuação dos deputados federais com total transparência. Todos os dados são obtidos diretamente da API oficial da Câmara dos Deputados.
+## ✨ **RECURSOS**
 
-## ✨ Recursos Principais
+### **Funcionalidades:**
+- ✅ 513 Deputados Federais
+- ✅ Despesas dos últimos 12 meses
+- ✅ Proposições (2024-2025)
+- ✅ Comissões ativas e encerradas
+- ✅ Trajetória política completa
+- ✅ Tema claro/escuro
+- ✅ Sons interativos
+- ✅ Funciona offline (PWA)
+- ✅ Instalável no celular
 
-### 📋 Dados Completos
-- **513 Deputados Federais** com informações atualizadas
-- Foto, nome, partido, estado, gabinete
-- Email, telefone e contato direto
+### **PWA (Progressive Web App):**
+- 📱 Instalável como app nativo
+- 🔄 Atualiza automaticamente
+- 💾 Funciona offline
+- ⚡ Carregamento instantâneo
+- 🔔 Notificações (futuro)
 
-### 💰 Despesas Transparentes
-- **Últimos 12 meses** de despesas
-- Atualização automática do Diário Oficial
-- Total gasto e detalhamento completo
-- Fornecedores e datas
+### **🔒 PROTEÇÕES IMPLEMENTADAS:**
 
-### 📝 Proposições
-- Todas as proposições apresentadas
-- Filtro por tipo (PL, PEC, PDL, etc.)
-- Ementas completas
-- Links para o portal oficial
+#### **1. Rate Limiting**
+- Máximo 100 requisições por minuto por IP
+- Bloqueia automaticamente IPs abusivos
+- Reset automático a cada 1 minuto
 
-### 🏛️ Comissões
-- Comissões ativas e encerradas
-- Cargo ocupado
-- Tempo de atuação
-- Links diretos
+#### **2. CORS Restritivo**
+- Apenas domínios autorizados podem acessar
+- Protege contra roubo de dados
+- Lista de domínios permitidos:
+  - `brasil-world.pages.dev`
+  - `localhost:3000` (dev)
 
-### 📊 Frequência
-- Links para consulta oficial
-- Portal da Câmara integrado
+#### **3. Security Headers**
+- `X-Frame-Options: DENY` - Anti-clickjacking
+- `X-Content-Type-Options: nosniff` - Anti-MIME sniffing
+- `X-XSS-Protection` - Proteção XSS
+- `Strict-Transport-Security` - Force HTTPS
+- `Content-Security-Policy` - Política restritiva de conteúdo
 
-### 📜 Trajetória Política
-- Mandato atual
-- Formação acadêmica
-- Histórico partidário
+#### **4. Validação de Inputs**
+- IDs validados (somente números, 1-999999)
+- Sanitização de strings
+- Remoção de caracteres perigosos
+- Limite de tamanho de inputs
 
-## 🎨 Interface Moderna
+#### **5. Bloqueio de Bots**
+- User-agents maliciosos bloqueados
+- `robots.txt` configurado
+- Scrapers conhecidos banidos
+- GPTBot, ChatGPT, Claude bloqueados
 
-### 🌓 Tema Claro/Escuro
-- Alternância suave entre temas
-- Cores da bandeira do Brasil
-- Design responsivo
+#### **6. Anti-DDoS Básico**
+- Cloudflare Protection ativo
+- Limite de CPU: 50ms
+- Cache inteligente
+- Headers otimizados
 
-### 🔊 Efeitos Sonoros
-- Sons arcade nos clicks
-- Controle de volume
-- Feedback tátil
+## 🚀 **COMO COLOCAR ONLINE**
 
-### ⚡ Performance
-- Cache inteligente por ID
-- Carregamento rápido
-- Otimizado para mobile
+### **OPÇÃO 1: Cloudflare Pages (RECOMENDADO)**
 
-## 🚀 Tecnologias
+#### **Passo 1: Criar conta no Cloudflare**
+1. Acesse: https://dash.cloudflare.com/sign-up
+2. Crie uma conta grátis
+3. Verifique seu e-mail
 
-### Backend
-- **Hono** - Framework web ultra-rápido
-- **Cloudflare Workers** - Edge computing
-- **TypeScript** - Tipagem estática
+#### **Passo 2: Conectar ao GitHub**
+1. No Cloudflare, vá em **Pages**
+2. Clique em **Create a project**
+3. Conecte sua conta GitHub
+4. Selecione o repositório `webapp`
 
-### Frontend
-- **Vanilla JavaScript** - Sem dependências pesadas
-- **CSS Variables** - Temas dinâmicos
-- **LocalStorage** - Cache offline
+#### **Passo 3: Configurar Build**
+```
+Build command: npm run build
+Build output directory: dist
+Root directory: /
+```
 
-### API
-- **Câmara dos Deputados** - Dados oficiais 100%
-- **Proxy CORS** - Acesso sem bloqueios
+#### **Passo 4: Deploy**
+1. Clique em **Save and Deploy**
+2. Aguarde 2-3 minutos
+3. **Pronto!** Seu app está online em:
+   ```
+   https://brasil-world.pages.dev
+   ```
 
-## 📱 Como Usar
+### **OPÇÃO 2: Vercel (Alternativa)**
 
-### Online
-Acesse: https://3000-i6s3t45g15hq4w4trdtv8-b237eb32.sandbox.novita.ai
+1. Acesse: https://vercel.com/
+2. Import Git Repository
+3. Selecione o repositório
+4. Configure:
+   ```
+   Build Command: npm run build
+   Output Directory: dist
+   Install Command: npm install
+   ```
+5. Deploy
 
-### Localmente
+### **OPÇÃO 3: Netlify**
+
+1. Acesse: https://app.netlify.com/
+2. Add new site → Import from Git
+3. Configure:
+   ```
+   Build command: npm run build
+   Publish directory: dist
+   ```
+4. Deploy
+
+## 📲 **COMO INSTALAR NO CELULAR**
+
+### **Android (Chrome):**
+1. Abra o link do app no Chrome
+2. Toque no menu (⋮)
+3. Selecione **"Instalar app"** ou **"Adicionar à tela inicial"**
+4. Confirme
+5. **Pronto!** Ícone aparecerá na tela inicial
+
+### **iPhone (Safari):**
+1. Abra o link do app no Safari
+2. Toque no botão **Compartilhar** (□↑)
+3. Role para baixo e toque em **"Adicionar à Tela Inicial"**
+4. Confirme
+5. **Pronto!** Ícone aparecerá na tela inicial
+
+## 🔄 **COMO ATUALIZAR**
+
+### **Automaticamente:**
+- PWA atualiza sozinho a cada carregamento
+- Service Worker busca novas versões
+- Usuário não precisa fazer nada
+
+### **Manualmente (desenvolvimento):**
 ```bash
-# Clone o repositório
-git clone [seu-repositório]
+# 1. Fazer alterações no código
+# 2. Commit
+git add -A
+git commit -m "feat: Nova funcionalidade"
+git push origin main
 
-# Entre na pasta
-cd webapp
-
-# Instale dependências
-npm install
-
-# Build
-npm run build
-
-# Inicie com PM2
-pm2 start ecosystem.config.cjs
-
-# Ou use Wrangler
-npm run dev:sandbox
+# 3. Cloudflare faz deploy automático
+# 4. Em 2-3 minutos, app está atualizado
 ```
 
-## 📦 Estrutura do Projeto
+## 🛡️ **CONFIGURAÇÕES DE SEGURANÇA**
 
-```
-webapp/
-├── src/
-│   └── index.tsx           # Backend Hono
-├── public/
-│   └── static/
-│       ├── app.js          # Frontend JavaScript
-│       ├── style.css       # Estilos completos
-│       └── manifest.json   # PWA manifest
-├── ecosystem.config.cjs    # PM2 config
-├── wrangler.jsonc          # Cloudflare config
-└── package.json
+### **Alterar CORS (domínios permitidos):**
+
+Edite `src/index.tsx`, linha ~28:
+
+```typescript
+const ALLOWED_ORIGINS = [
+  'https://seu-dominio.com',  // Adicione seu domínio aqui
+  'https://brasil-world.pages.dev',
+  'http://localhost:3000'
+]
 ```
 
-## 🔧 Desenvolvimento
+### **Alterar Rate Limit:**
 
-### Comandos Disponíveis
+Edite `src/index.tsx`, linha ~48:
 
-```bash
-# Desenvolvimento local
-npm run dev
-
-# Build para produção
-npm run build
-
-# Preview produção
-npm run preview
-
-# Deploy Cloudflare
-npm run deploy
+```typescript
+const windowMs = 60000 // 1 minuto
+const maxRequests = 100 // Máximo de requisições
 ```
 
-### Variáveis de Ambiente
+### **Bloquear User-Agents:**
 
-Nenhuma variável necessária! Tudo funciona out-of-the-box.
+Edite `src/index.tsx`, linha ~70:
 
-## 🌐 Deploy
-
-### Cloudflare Pages
-```bash
-npm run deploy
+```typescript
+const BLOCKED_USER_AGENTS = ['wget', 'scrapy', 'python-requests', 'SEU-BOT-AQUI']
 ```
 
-### Outros Serviços
-O app é compatível com:
-- Vercel
-- Netlify
-- AWS Amplify
-- Google Cloud Run
+## 📊 **MONITORAMENTO**
 
-## 📊 Dados e Cache
+### **Health Check:**
+```
+https://brasil-world.pages.dev/health
+```
 
-### Cache LocalStorage
-- **Deputados:** 30 minutos
-- **Despesas:** 7 dias
-- **Proposições:** 30 minutos
-- **Comissões:** 30 minutos
+Retorna:
+```json
+{
+  "status": "ok",
+  "service": "Brasil World V9 - PWA + Segurança Máxima",
+  "timestamp": "2026-02-12T00:59:54.722Z",
+  "security": {
+    "rateLimit": "100 req/min",
+    "cors": "Restritivo",
+    "headers": "Secure",
+    "validation": "Ativa"
+  }
+}
+```
 
-### API Oficial
-Todos os dados vêm de:
-https://dadosabertos.camara.leg.br/api/v2
+### **Cloudflare Analytics:**
+- Acesse o dashboard do Cloudflare Pages
+- Veja:
+  - Número de visitas
+  - Requisições bloqueadas
+  - Tráfego por país
+  - Performance
 
-## 🎯 Roadmap
+## 🐛 **SOLUÇÃO DE PROBLEMAS**
 
-### Em Desenvolvimento
-- [ ] **Senadores** (81 parlamentares)
-- [ ] **Vereadores** por cidade
-- [ ] **Governadores** e deputados estaduais
-- [ ] **Notificações** de novas proposições
-- [ ] **Comparações** entre deputados
-- [ ] **Exportação** de dados (PDF, CSV)
+### **App não instala no celular:**
+- Certifique-se de estar usando HTTPS
+- Limpe o cache do navegador
+- Tente em modo anônimo primeiro
 
-### Futuro
-- [ ] App nativo (iOS/Android)
-- [ ] Push notifications
-- [ ] Modo offline completo
-- [ ] Análises e estatísticas
+### **"Acesso negado" na API:**
+- Verifique se seu domínio está em `ALLOWED_ORIGINS`
+- Certifique-se de não estar usando um bot/scraper
+- Verifique o rate limit (máx 100 req/min)
 
-## 📱 Play Store
+### **App não atualiza:**
+- Force atualização: CTRL+SHIFT+R (desktop)
+- Limpe o cache do Service Worker
+- Desinstale e reinstale o app
 
-Quer publicar na Play Store? Leia o guia completo:
-**[GUIA_PLAY_STORE.md](./GUIA_PLAY_STORE.md)**
+## 📞 **SUPORTE**
 
-## 🤝 Contribuindo
+- **Issues:** https://github.com/seu-usuario/webapp/issues
+- **E-mail:** seu-email@example.com
+- **Docs API:** https://dadosabertos.camara.leg.br/swagger/api.html
 
-Contribuições são bem-vindas! Por favor:
+## 📄 **LICENÇA**
 
-1. Fork o projeto
-2. Crie uma branch (`git checkout -b feature/nova-feature`)
-3. Commit suas mudanças (`git commit -m 'Add: nova feature'`)
-4. Push para a branch (`git push origin feature/nova-feature`)
-5. Abra um Pull Request
-
-## 📄 Licença
-
-Este projeto é de código aberto para fins educacionais e de transparência.
-
-## 👥 Autor
-
-**Brasil World Tecnologia**
-- Transparência política ao alcance de todos
-- 100% dados oficiais do governo brasileiro
-
-## 🙏 Agradecimentos
-
-- **Câmara dos Deputados** - API oficial
-- **Cloudflare** - Infraestrutura
-- **Comunidade open source** - Ferramentas incríveis
-
-## 📞 Contato
-
-- Email: contato@brasilworld.com.br
-- Issues: [GitHub Issues]
-- Twitter: @brasilworld
-
-## 🌟 Mostre seu Apoio
-
-Se este projeto te ajudou, dê uma ⭐ no GitHub!
+MIT License - Livre para uso pessoal e comercial
 
 ---
 
-**Feito com ❤️ para o povo brasileiro**
+## 🎉 **PRONTO PARA USO!**
 
-🇧🇷 Transparência é fundamental para a democracia
+Seu app está **100% funcional**, **protegido** e **atualiza automaticamente**.
+
+### **Próximos passos:**
+1. Faça deploy no Cloudflare Pages
+2. Compartilhe o link
+3. Veja as pessoas instalando
+4. Acompanhe as estatísticas
+
+**Boa sorte! 🚀🇧🇷**
