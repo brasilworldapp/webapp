@@ -8,6 +8,8 @@
     "deploy": "npm run build && wrangler pages deploy dist"
   },
   "dependencies": {
+    "@capacitor/cli": "^8.1.0",
+    "@capacitor/core": "^8.1.0",
     "hono": "^4.11.9"
   },
   "devDependencies": {
